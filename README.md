@@ -78,7 +78,7 @@ The xsukax Dynamic SVG Badge Generator is a sophisticated PHP application design
 2. **Deploy to Web Server**
    ```bash
    # For Apache/Nginx
-   cp badge.php /var/www/html/
+   cp index.php /var/www/html/
    
    # For development server
    php -S localhost:8000
@@ -88,19 +88,19 @@ The xsukax Dynamic SVG Badge Generator is a sophisticated PHP application design
    ```apache
    # Apache .htaccess example
    RewriteEngine On
-   RewriteRule ^badge/(.+)$ badge.php?badge=$1 [L,QSA]
+   RewriteRule ^badge/(.+)$ index.php?badge=$1 [L,QSA]
    ```
 
 4. **Verify Installation**
    ```bash
-   curl "http://localhost/badge.php?badge=Test-Working-green.svg"
+   curl "http://localhost/index.php?badge=Test-Working-green.svg"
    ```
 
 ### Docker Deployment
 
 ```dockerfile
 FROM php:8.1-apache
-COPY badge.php /var/www/html/
+COPY index.php /var/www/html/
 EXPOSE 80
 ```
 
@@ -114,7 +114,7 @@ docker run -p 8080:80 xsukax-badge-generator
 ### Basic Syntax
 
 ```
-GET /badge.php?badge=LABEL-MESSAGE-COLOR1-COLOR2-FONTCOLOR.svg
+GET /index.php?badge=LABEL-MESSAGE-COLOR1-COLOR2-FONTCOLOR.svg
 ```
 
 ### URL Structure
@@ -142,7 +142,7 @@ sequenceDiagram
     participant Parser
     participant SVGRenderer
     
-    Client->>BadgeGenerator: GET /badge.php?badge=Label-Message-Color
+    Client->>BadgeGenerator: GET /index.php?badge=Label-Message-Color
     BadgeGenerator->>Parser: Extract & Sanitize Parameters
     Parser->>Parser: Parse Label, Message, Colors
     Parser->>SVGRenderer: Formatted Parameters
@@ -156,37 +156,37 @@ sequenceDiagram
 #### Basic Usage
 ```bash
 # Simple badge
-/badge.php?badge=Status-Online-green.svg
+/index.php?badge=Status-Online-green.svg
 
 # Custom colors
-/badge.php?badge=Build-Passing-brightgreen-blue.svg
+/index.php?badge=Build-Passing-brightgreen-blue.svg
 
 # With font color
-/badge.php?badge=Coverage-95%-green-lightgreen-white.svg
+/index.php?badge=Coverage-95%-green-lightgreen-white.svg
 ```
 
 #### Text Formatting
 ```bash
 # Spaces using underscores
-/badge.php?badge=Build_Status-Tests_Passing-green.svg
+/index.php?badge=Build_Status-Tests_Passing-green.svg
 
 # URL encoded spaces
-/badge.php?badge=Code%20Coverage-95%20percent-blue.svg
+/index.php?badge=Code%20Coverage-95%20percent-blue.svg
 
 # Preserving plus signs
-/badge.php?badge=C++-Programming_Language-orange.svg
+/index.php?badge=C++-Programming_Language-orange.svg
 ```
 
 #### Advanced Color Usage
 ```bash
 # Hex colors
-/badge.php?badge=Custom-Badge-ff6b6b-4ecdc4-ffffff.svg
+/index.php?badge=Custom-Badge-ff6b6b-4ecdc4-ffffff.svg
 
 # Named colors
-/badge.php?badge=Status-Warning-yellow-darkyellow-black.svg
+/index.php?badge=Status-Warning-yellow-darkyellow-black.svg
 
 # Bootstrap theme colors
-/badge.php?badge=Alert-Danger-danger-warning-white.svg
+/index.php?badge=Alert-Danger-danger-warning-white.svg
 ```
 
 ### Supported Colors
@@ -236,12 +236,12 @@ graph TB
 
 #### GitHub README
 ```markdown
-![Build Status](https://yourdomain.com/badge.php?badge=Build-Passing-green.svg)
+![Build Status](https://yourdomain.com/index.php?badge=Build-Passing-green.svg)
 ```
 
 #### HTML Integration
 ```html
-<img src="/badge.php?badge=Version-2.4-blue.svg" alt="Version 2.4">
+<img src="/index.php?badge=Version-2.4-blue.svg" alt="Version 2.4">
 ```
 
 #### CI/CD Pipeline
@@ -249,7 +249,7 @@ graph TB
 # Example GitHub Action
 - name: Generate Badge
   run: |
-    curl "https://badges.yoursite.com/badge.php?badge=Tests-${{ job.status }}-green.svg" \
+    curl "https://badges.yoursite.com/index.php?badge=Tests-${{ job.status }}-green.svg" \
          -o badge.svg
 ```
 
